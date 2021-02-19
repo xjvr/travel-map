@@ -2,13 +2,13 @@
     "rows": [
         {
             "country": "中国",
-            "city": "山东泰山",
+            "city": "山东济南",
             "times": "1",
-            "date": "2018年06月",
-            "imgs":["taishan_01.jpg"],
-            "remark": "毕业旅行，一个人去的泰山，当时夜爬泰山，到凌晨的时候又冷又饿，冻成狗了",
-            "longitude": "117.110857",
-            "latitude": "36.262014"
+            "date": "2020年06月17日",
+            "imgs":["jn_01.jpg","jn_02.jpg","jn_03.jpg"],
+            "remark": "第一次见面的地方哦",
+            "longitude": "117.021233",
+            "latitude": "36.661704"
         },
         {
             "country": "中国",

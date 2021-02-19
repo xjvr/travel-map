@@ -6,7 +6,7 @@ var mapAttr =
 
 //mapbox 地图服务URL
 var mapboxUrl =
-    'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=申请的token';
+    'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2Fma2FzYXgiLCJhIjoiY2tjZm81cWFtMGp2bTJ6cGhqcjE5ZXA3cCJ9.pTVG3N1uWQJwkyaXnBgc9Q';
 
 // 地图中心点，武汉
 var centerPoint = [30.59276, 114.30525];
@@ -26,44 +26,50 @@ var  streets = L.tileLayer(mapboxUrl, {
 //从插件代码可以看出 需要传入 providerName.mapName.mapType 从插件代码中查找所需要的值
 var geoq = L.tileLayer.chinaProvider('Geoq.Normal.Gray', {
     maxZoom: 18,
-    minZoom: 5
+    minZoom: 4
 });
 var gaode = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
     maxZoom: 18,
-    minZoom: 5
+    minZoom: 4
 });
+
 var tianditu = L.tileLayer.chinaProvider('TianDiTu.Terrain.Map', {
     maxZoom: 18,
-    minZoom: 5
+    minZoom: 4
 });
 var google = L.tileLayer.chinaProvider('Google.Satellite.Map', {
     maxZoom: 18,
-    minZoom: 5
+    minZoom: 4
 });
+
+var googleNormal = L.tileLayer.chinaProvider('Google.Normal.Map', {
+  maxZoom: 18,
+  minZoom: 4
+});
+
 var osm = L.tileLayer.chinaProvider('OSM.Normal.Map', {
-    maxZoom: 18,
-    minZoom: 5
+  maxZoom: 18,
+  minZoom: 4
 });
 
 // 创建地图
 var map = L.map('map', {
   center: centerPoint,
   zoom: 5,
-  minZoom: 1,
+  minZoom: 4,
   maxZoom: 16,
   attribution: mapAttr,
-  layers: [satellite, streets,geoq,gaode,tianditu,google,osm]
+  layers: [google, googleNormal, gaode] //satellite, streets, geoq, tianditu, osm
 });
 // 通过layer control来实现图层切换UI
 // https://leafletjs.com/examples/layers-control/
 var baseLayers = {
-    智图Geoq:geoq,
+    // 智图Geoq:geoq, 
+    // 天地图:tianditu,
+    Google卫星:google,
+    Google地图:googleNormal,
     高德地图:gaode,
-    天地图:tianditu,
-    Google地图:google,
-    OSM地图:osm,
-    Mapbox影像图: satellite,
-    Mapbox街道图: streets
+    // OSM地图:osm,
 };
 
 L.control.layers(baseLayers).addTo(map);
@@ -77,7 +83,7 @@ $.get('./data/data.json', function(result) {
 // marker icon
 // 图标icon介绍两个网站可以下载:www.iconfont.cn 和 www.easyicon.net
 var footIcon = L.icon({
-  iconUrl: './foot.png',
+  iconUrl: './mark.png',
   iconSize: [28, 28],
   iconAnchor: [10, 10]
 });
@@ -107,16 +113,16 @@ function drawFootPoint(data) {
 /**
  * veiwerjs预览大图
  */
-function viewPic() {
-  var galley = document.getElementById('galley');
-  var viewer = new Viewer(galley, {
-    url: 'data-original',
-    hidden: function() {
-      viewer.destroy();
-    }
-  });
-  viewer.show();
-}
+// function viewPic() {
+//   var galley = document.getElementById('galley');
+//   var viewer = new Viewer(galley, {
+//     url: 'data-original',
+//     hidden: function() {
+//       viewer.destroy();
+//     }
+//   });
+//   viewer.show();
+// }
 
 /**
  * 动态拼接html字符串
@@ -136,13 +142,8 @@ function generatePicHtml(imgs) {
       display = 'style="display:none"';
     }
     _html +=
-      '<li ' +
-      display +
-      '><img data-original="' +
-      url +
-      '" src="' +
-      url +
-      '" alt="图片预览"></li>';
+    '<li ' + display + '><a data-fancybox="gallery" href="' + url + '"><img src="' + url + '"></a></li>';
+      // </a>'<li ' + display + '><img data-original="' + url + '" src="' + url + '" alt="图片预览"></li>';
   }
   _html += '</ul></div></div>';
 

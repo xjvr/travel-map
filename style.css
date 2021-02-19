@@ -74,7 +74,7 @@ html {
 }
 
 .pictures>li {
-    margin: 0 5px 2px 0;
+    margin: 0 2px 2px 2px;
     border: 1px solid transparent;
     overflow: hidden;
 }
@@ -100,4 +100,12 @@ html {
 ul.pictures li img {
     width: 80px;
     height: 80px;
+}
+
+.leaflet-popup-content-wrapper{
+    z-index: 1001;
+}
+
+.leaflet-popup-content {
+    width: 258px;
 }
